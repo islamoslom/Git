@@ -249,9 +249,34 @@ public:
     void LeftInsert(int num)
     {
         DoublyNode *temp = new DoublyNode(num);
-        temp->next = head;
-        temp->prev = nullptr;
-        head = temp;
+        if (head == nullptr)
+        {
+            head = temp;
+            tail = temp;
+        }
+        else
+        {
+            temp->next = head;
+            head->prev = temp;
+            temp->prev = nullptr;
+            head = temp;
+        }
+    }
+    void RightInsert(int num)
+    {
+        DoublyNode *temp = new DoublyNode(num);
+        if (tail == nullptr)
+        {
+            head = temp;
+            tail = temp;
+        }
+        else
+        {
+            temp->prev = tail;
+            tail->next = temp;
+            temp->next = nullptr;
+            tail = temp;
+        }
     }
     void print()
     {
@@ -264,6 +289,18 @@ public:
                 cout << " -> ";
             }
             temp = temp->next;
+        }
+        cout << endl;
+    }
+    void ReversePrint()
+    {
+        DoublyNode *temp = tail;
+        while (temp != nullptr)
+        {
+            cout << temp->element;
+            if (temp->prev != nullptr)
+                cout << " -> ";
+            temp = temp->prev;
         }
         cout << endl;
     }
