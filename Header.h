@@ -306,6 +306,60 @@ public:
     }
 };
 
+class Stack
+{
+private:
+    int size = 0;
+    int capacity = 100;
+    int *arr = new int[capacity];
+
+private:
+    void grow()
+    {
+        capacity = capacity * 2;
+        int *NewArr = new int[capacity];
+        for (int i = 0; i < getsize(); i++)
+        {
+            NewArr[i] = arr[i];
+        }
+        delete[] arr;
+        arr = NewArr;
+    }
+
+public:
+    bool IsEmpty()
+    {
+        return getsize() < 1;
+    }
+    int getsize()
+    {
+        return size;
+    }
+    void push(int num)
+    {
+        if (size >= capacity)
+            grow();
+        size++;
+        arr[size - 1] = num;
+    }
+    void pop()
+    {
+        if (IsEmpty())
+            cout << "\"ERROR\": Stack is empty.";
+        else
+            size--;
+    }
+    int top()
+    {
+        if (IsEmpty())
+        {
+            cout << "\"ERROR\": Stack is empty.";
+            return 0;
+        }
+        return arr[size - 1];
+    }
+};
+
 class DynamicArray
 {
 private:
