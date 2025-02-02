@@ -360,6 +360,43 @@ public:
     }
 };
 
+class Node1
+{
+public:
+    Node1 *next;
+    int data;
+    Node1(int num)
+    {
+        data = num;
+        next = nullptr;
+    }
+};
+
+class Stack1
+{
+private:
+    Node1 *head = nullptr;
+
+public:
+    void push(int num)
+    {
+        Node1 *temp = new Node1(num);
+        temp->next = head;
+        head = temp;
+    }
+    void pop()
+    {
+        Node1 *temp = head;
+        head = head->next;
+        delete temp;
+    }
+
+    int top()
+    {
+        return head->data;
+    }
+};
+
 class DynamicArray
 {
 private:
