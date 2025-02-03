@@ -363,7 +363,7 @@ public:
     }
 };
 
-class Node1
+class Node1 // same as Node
 {
 public:
     Node1 *next;
@@ -450,6 +450,41 @@ public:
             return 0;
         }
         return m_array[head];
+    }
+};
+
+class Queue
+{
+    Node1 *head = nullptr, *tail = nullptr;
+
+public:
+    void enqueue(int num)
+    {
+        Node1 *temp = new Node1(num);
+        if (head == nullptr)
+            head = temp;
+        if (tail != nullptr)
+            tail->next = temp;
+        temp->next = nullptr;
+        tail = temp;
+    }
+    void dequeue()
+    {
+        if (head == nullptr)
+        {
+            cout << "ERROR:queue is empty";
+            return;
+        }
+        head = head->next;
+    }
+    int front()
+    {
+        if (head == nullptr)
+        {
+            cout << "ERROR:queue is empty ";
+            return 0;
+        }
+        return head->data;
     }
 };
 
