@@ -400,6 +400,59 @@ public:
     }
 };
 
+class CircularQueue
+{
+    int m_array[3];
+    int head, tail;
+    bool empty = true;
+    bool full = false;
+
+public:
+    void enqueue(int num)
+    {
+        if (full)
+        {
+            cout << "ERROR: queue is full";
+            return;
+        }
+        if (empty)
+        {
+            head = 0;
+            tail = 0;
+            m_array[tail] = num;
+            empty = false;
+        }
+        else
+        {
+            tail = (tail + 1) % 3;
+            m_array[tail] = num;
+        }
+        if ((tail + 1) % 3 == head)
+            full = true;
+    }
+    void dequeue()
+    {
+        full = false;
+        if (empty)
+        {
+            cout << "ERROR: queue is empty";
+            return;
+        }
+        head = (head + 1) % 3;
+        if ((tail + 1) % 3 == head)
+            empty = true;
+    }
+    int front()
+    {
+        if (empty)
+        {
+            cout << "ERROR: queue is empty";
+            return 0;
+        }
+        return m_array[head];
+    }
+};
+
 class DynamicArray
 {
 private:
