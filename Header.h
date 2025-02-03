@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
+#include <stack>
 using namespace std;
+
+// Classes:
 
 enum LEVEL
 {
@@ -453,3 +456,77 @@ public:
         delete[] arr;
     }
 };
+
+class SmartPointer
+{
+    int *m_Ptr;
+
+public:
+    SmartPointer(int *ptr) : m_Ptr(ptr) {}
+    ~SmartPointer()
+    {
+        delete m_Ptr;
+    }
+};
+
+// Functions:
+
+string infix_to_postfix(string infix)
+{
+    stack<char> operators;
+    string postfix = "";
+    for (int i = 0; i < infix.size(); i++)
+    {
+        if (infix.at(i) == '(')
+        {
+            operators.push(infix.at(i));
+        }
+        else if (infix.at(i) == '*' || infix.at(i) == '/')
+            if (operators.empty() || operators.top() == '+' || operators.top() == '-' || operators.top() == '(')
+            {
+                operators.push(infix.at(i));
+                postfix += ' ';
+            }
+            else
+            {
+                postfix += ' ';
+                postfix += operators.top();
+                operators.pop();
+                i--;
+            }
+        else if (infix.at(i) == '+' || infix.at(i) == '-')
+            if (operators.empty() || operators.top() == '(')
+            {
+                operators.push(infix.at(i));
+                postfix += ' ';
+            }
+            else
+            {
+                postfix += ' ';
+                postfix += operators.top();
+                operators.pop();
+                i--;
+            }
+        else if (infix.at(i) == ')')
+        {
+            while (operators.top() != '(')
+            {
+                postfix += ' ';
+                postfix += operators.top();
+                operators.pop();
+            }
+            operators.pop();
+        }
+        else
+        {
+            postfix += infix.at(i);
+        }
+    }
+    while (!operators.empty())
+    {
+        postfix += ' ';
+        postfix += operators.top();
+        operators.pop();
+    }
+    return postfix;
+}
