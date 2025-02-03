@@ -366,13 +366,9 @@ public:
 class Node1 // same as Node
 {
 public:
-    Node1 *next;
+    Node1 *next = nullptr;
     int data;
-    Node1(int num)
-    {
-        data = num;
-        next = nullptr;
-    }
+    Node1(int num) : data(num) {}
 };
 
 class Stack1
@@ -475,7 +471,9 @@ public:
             cout << "ERROR:queue is empty";
             return;
         }
+        Node1 *temp = head;
         head = head->next;
+        delete temp;
     }
     int front()
     {
@@ -485,6 +483,15 @@ public:
             return 0;
         }
         return head->data;
+    }
+    ~Queue()
+    {
+        while (head != nullptr)
+        {
+            Node1 *temp = head;
+            head = head->next;
+            delete temp;
+        }
     }
 };
 
