@@ -1,3 +1,4 @@
+//made by: Islam Mostafa
 #pragma once
 #include <iostream>
 #include <stack>
@@ -62,10 +63,11 @@ public:
         temp->next = head;
         head = temp;
     }
+
     void InsertAt(int index, int num)
     {
         if (index == 0)
-            (*this).LeftInsert(num);
+            LeftInsert(num);
         else if (index <= GetSize() && index > 0)
         {
             Node *temp = new Node(num);
@@ -470,6 +472,11 @@ public:
         {
             cout << "ERROR:queue is empty";
             return;
+        }
+        else if (head == tail)
+        {
+            head == nullptr;
+            tail == nullptr;
         }
         Node1 *temp = head;
         head = head->next;
